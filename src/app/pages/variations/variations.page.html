@@ -1,0 +1,159 @@
+<!-- <ion-header>
+  <div class="header">
+    <div class="bts">
+      <div class="desc">
+        <p class="title">{{productName}}</p>
+        <p class="details">{{ (desc.length>40)? (desc | slice:0:40)+'..':(desc) }}</p>
+      </div>
+      <ion-buttons slot="end">
+        <ion-button (click)="closeIt()">
+          <ion-icon name="close"></ion-icon>
+        </ion-button>
+      </ion-buttons>  
+    </div>
+  </div>
+</ion-header> -->
+
+
+<ion-content>
+  <ion-icon name="close" class="close-btn" (click)="closeIt()"></ion-icon>
+  <div class="card-content">
+    <img [src]="cover" />
+  </div>
+  <div class="food-info">
+    <!-- <p class="title" style="font-size: large;">{{productName}}</p>
+    <p class="details">{{ (desc.length>40)? (desc | slice:0:40)+'..':(desc) }}</p> -->
+    <p class="heading_lbl"  style="text-align: right; padding-top: 5px; font-weight: bolder; font-size: x-large;">{{productName}}</p>
+    <p   style="text-align: right; font-size:smaller; color: darkgrey; margin-top: 0px; padding-bottom: 4px;  border-bottom: 1px solid lightgray;  ">{{desc}}</p>
+
+  </div>
+
+  <!-- Same Product -->
+  <div *ngIf="sameProduct">
+    <div *ngFor="let item of sameCart;let i = index" class="cartItems">
+      <p class="name">{{productName}}</p>
+      <div class="details">
+        <div class="names">
+          <p *ngFor="let sub of item.item" class="subDetails"> {{sub.name}} </p>
+        </div>
+        <div class="cartBtn2">
+          <ion-button (click)="removeQ(i)" fill="clear" size="small">
+            <ion-icon name="remove"></ion-icon>
+          </ion-button>
+          <p class="qunitity">{{item.total}}</p>
+          <ion-button (click)="addQ(i)" fill="clear" size="small">
+            <ion-icon name="add"></ion-icon>
+          </ion-button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- New Or diff variations -->
+  <div *ngIf="!sameProduct" class="padder">
+    <div *ngFor="let item of lists;let i = index;">
+      <ion-list *ngIf="item.type == 'radio'">
+        <ion-radio-group (ionChange)="radioGroupChange($event,item.title)">
+          <ion-list-header style="
+    display: table-footer-group;
+    text-align: right;
+">
+            <ion-label class="header-label" style="
+    background-color: #37b44e;
+    display: grid;
+    padding-right: 12px;
+    padding-left: 12px;
+    padding-bottom: 6px;
+    padding-top: 6px;
+    color: white;
+    font-weight: bolder;
+">{{item.title}}</ion-label>
+          </ion-list-header>
+          <ion-item *ngFor="let sub of item.items;let j = index;">
+            <ion-label class="quantity-container">
+              <div *ngIf="sub.quantity > 0" class="cartBtn2">
+                <ion-button (click)="remove(i,j)" fill="clear">
+                  <ion-icon name="remove"></ion-icon>
+                </ion-button>
+                <p class="qunitity">{{sub.quantity}}</p>
+                <ion-button (click)="add(i,j)" fill="clear">
+                  <ion-icon name="add"></ion-icon>
+                </ion-button>
+              </div>
+            </ion-label>
+          <ion-label style="text-align: right; direction:rtl;">{{sub.price}} ج.م </ion-label>
+            <ion-label style="text-align: right">{{sub.title}}</ion-label>
+            <ion-radio slot="end" [value]="sub.title" [name]="sub.title" mode="md"></ion-radio>
+          </ion-item>
+        </ion-radio-group>
+      </ion-list>
+      <ion-list *ngIf="item.type =='check'" style="
+    text-align: right;
+    display: inline;
+">
+        <ion-list-header class="header-label" style="
+    display: table-footer-group;
+    text-align: right;
+">
+          <ion-label style="
+    background-color: #37b44e;
+    display: grid;
+    padding-right: 12px;
+    padding-left: 12px;
+    padding-bottom: 6px;
+    padding-top: 6px;
+    color: white;
+    font-weight: bolder;
+">{{item.title}} </ion-label>
+        </ion-list-header>
+        <ion-item *ngFor="let sub of item.items;let j = index;">
+          <ion-label class="quantity-container">
+            <div class="cartBtn2" *ngIf="sub.quantity > 0">
+              <ion-button (click)="remove(i,j)" fill="clear">
+                <ion-icon name="remove"></ion-icon>
+              </ion-button>
+              <p class="qunitity">{{sub.quantity}}</p>
+              <ion-button (click)="add(i,j)" fill="clear">
+                <ion-icon name="add"></ion-icon>
+              </ion-button>
+            </div>
+          </ion-label>
+          <ion-label style="text-align: right; direction:rtl;">{{sub.price}} ج.م </ion-label>
+          <ion-label style="text-align: right">{{sub.title}}</ion-label>
+          <ion-checkbox slot="end" [value]="sub.price" (ionChange)="checkedEvent($event, sub.title, sub.price, item.title)" mode="md">
+          </ion-checkbox>
+        </ion-item>
+      </ion-list>
+    </div>
+    <ion-item> <ion-label style="text-align: right; margin-top:20px; direction:rtl;  border: black; border-radius:40px !important;">
+      
+      <ion-icon name="document"></ion-icon>ملاحظات اضافية</ion-label>
+    </ion-item>
+    <ion-item >
+      <ion-textarea style="text-align: right; direction:rtl; border: black; border-radius:200px !important;"  [(ngModel)]="notes"  placeholder="اكتب ملاحظة"></ion-textarea>
+    </ion-item>
+  </div>
+
+   
+    <ion-row *ngIf="sameProduct">
+      <ion-col size="6">
+        <ion-button (click)="sameChoise()" expand="block">
+          OK
+        </ion-button>
+      </ion-col>
+      <ion-col size="6">
+        <ion-button (click)="sameProduct = !sameProduct;newItem = true" expand="block">
+          Add new
+        </ion-button>
+      </ion-col>
+    </ion-row>
+
+
+
+</ion-content>
+<ion-footer class="ion-no-border">
+  <ion-button (click)="addToCart()" expand="block" *ngIf="!sameProduct">
+    <ion-label slot="start" class="width-50" style="direction:rtl;" >{{total ? total : ''}} {{total ? getSymobol():'' }} </ion-label>
+    <ion-label slot="end" class="width-50"> أضف الي السلة</ion-label>
+  </ion-button></ion-footer>

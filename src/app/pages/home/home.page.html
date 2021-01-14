@@ -1,0 +1,247 @@
+<ion-header mode="ios">
+  <!-- <ion-toolbar [hidden]="headerHidden" class="animated fadeInDown" *ngIf="haveLocation"> -->
+  <ion-toolbar>
+    <div class="deliveryAddress">
+<ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+  <div class="login-logo">
+    <img src="assets/icon.png" class="logo_icon" alt="yoga" style="width:35px;">
+  </div>          <div class="userPhoto" (click)="openAccount()" [style.backgroundImage]="'url('+ profile +')'" *ngIf="profile"></div>
+
+      <div class="userPhoto" (click)="openAccount()" [style.backgroundImage]="'url(assets/user.png)'" *ngIf="!profile"></div>
+    </div>
+    <!-- <div class="div_searchbar">
+      <ion-searchbar animated="true" mode="ios" [placeholder]="('Search Restaurants' | translate) || '&nbsp;'"
+        (ionChange)="onSearchChange($event)" [debounce]="250" class="search_bar"></ion-searchbar>
+    </div> -->
+  </ion-toolbar>
+  <!-- <div class="chips_div animated fadeInDown" *ngIf="allRest?.length">
+    <ion-label class="chip" *ngFor="let item of chips;let i = index" (click)="addFilter(i)">{{item}}</ion-label>
+  </div>
+  <ion-item style="direction:rtl;">
+    <ion-label> <span *ngIf="!nearme">{{'Near Me' | translate}}</span> <span
+        *ngIf="nearme">{{'All Rest' | translate}}</span> </ion-label>
+    <ion-toggle slot="end" (ionChange)="nearMe()" [(ngModel)]="nearme"></ion-toggle>
+  </ion-item> -->
+</ion-header>
+
+<ion-content [scrollEvents]="true" (ionScroll)="onScroll($event)">
+  <div class="restContent"  *ngIf="MarketFlage==true" [style.backgroundImage]="'url(https://firebasestorage.googleapis.com/v0/b/shop-cb6b5.appspot.com/o/04bUaRuqfhXEjAcFCOxn4LqsqdF3%2Ffreedlev.jpg?alt=media&token=3ea48b4e-afdd-439b-a834-f3321a05c4ee)'">
+
+    <div class="btnss">
+      <ion-icon (click)="back()" class="backIcon" color="light" slot="start" name="arrow-back-outline"></ion-icon>
+      <ion-label class="moreInfo" (click)="openDetails()"> </ion-label>
+    </div>
+  </div>
+  <div class="restContent"  *ngIf="flagPharmcy==true" [style.backgroundImage]="'url(https://firebasestorage.googleapis.com/v0/b/shop-cb6b5.appspot.com/o/drivers%2Fpharmacy.jpg?alt=media&token=06976781-6a51-45b3-97e0-5eb344a61853)'">
+
+    <div class="btnss">
+      <ion-icon (click)="back()" class="backIcon" color="light" slot="start" name="arrow-back-outline"></ion-icon>
+      <ion-label class="moreInfo" (click)="openDetails()"> </ion-label>
+    </div>
+  </div>
+  <div class="main_content_div">
+    <ion-slides [options]="slideOpts" *ngIf="banners?.length && allRest?.length">
+      <ion-slide *ngFor="let item of banners" (click)="openOffers(item)">
+        <div class="back_image" [ngStyle]="{'background-image':'url('+item.banner+')'}">
+        </div>
+      </ion-slide>
+    </ion-slides>
+    <!-- <ion-grid>
+    <ion-row>
+     
+      <ion-col size="6" >
+        <div class="div_searchbar">
+          <ion-searchbar animated="true" mode="ios" [placeholder]="('Search Restaurants' | translate) || '&nbsp;'"
+            (ionChange)="onSearchChange($event)" [debounce]="250" class="search_bar"></ion-searchbar>
+        </div>
+      </ion-col>
+      <ion-col size="6" >
+        
+        <ion-label color="primary">Primary Label</ion-label>
+    </ion-col>
+    </ion-row></ion-grid> -->
+   
+    <div class="noData" *ngIf="!dummy?.length && !allRest?.length && flagPharmcy!=true && PharmChooseAddress!=true" [style.backgroundImage]="'url(assets/nothing.jpg)'">
+
+    </div>
+    <p style="font-weight: bold;text-align: center;" *ngIf="!dummy?.length && !allRest?.length && flagPharmcy!=true && PharmChooseAddress!=true ">
+      {{'No Restaurants Found!' | translate}}
+    </p>
+    <div *ngFor="let item of dummy">
+      <ion-list>
+        <ion-item>
+          <ion-thumbnail slot="start">
+            <ion-skeleton-text animated></ion-skeleton-text>
+          </ion-thumbnail>
+          <ion-label>
+            <h3>
+              <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+            </h3>
+            <p>
+              <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+            </p>
+            <p>
+              <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+            </p>
+          </ion-label>
+        </ion-item>
+      </ion-list>
+    </div>
+    <div class="card_div"  *ngIf="MarketFlage==false">
+      <ion-row [className]="item && item.status =='close' ? 'cardClosed ion-no-padding':'card ion-no-padding'"
+        *ngFor="let item of allRest">
+        <div class="image_div" (click)="openMenu(item)" [style.backgroundImage]="'url('+item.cover+')'"></div>
+        <div class="details-div">
+         <div class="time" *ngIf="MarketFlage!=true" style="direction:rtl; font-weight:bolder;">التوصيل {{item.dishPrice}} {{getCurrency()}}</div> 
+		  
+          <div class="name">{{item.name}}</div>
+        </div>
+        <div *ngIf="MarketFlage!=true" class="details-div">
+
+         <div class="time"  style="direction:rtl; font-weight:bolder;">
+		  		  			            <img class="delivery-img" src="assets/3l.png" style="    width: 20px; vertical-align: middle;">
+
+		  {{item.time}} دقيقة</div>
+         <div class="cuisine">{{getCusine(item.cusine)}}</div> 
+        </div>
+      </ion-row>
+    </div>
+    
+	
+     <div class="card-container" *ngIf="MarketFlage==true">
+           <!-- <div class="restContent"  *ngIf="MarketFlage==true" [style.backgroundImage]="'url(https://firebasestorage.googleapis.com/v0/b/shop-cb6b5.appspot.com/o/04bUaRuqfhXEjAcFCOxn4LqsqdF3%2Foffers.jpg?alt=media&token=48cb1c8d-56e1-4700-bda6-c50cdfa313d2)'"> -->
+
+      <div *ngFor="let item of allRest">
+        <div  class="card" >
+    
+
+          <div class="card-content">
+
+         <div class="image_div" (click)="openMenu(item)" [style.backgroundImage]="'url('+item.cover+')'"></div>
+         <div class="sep"></div>
+            <div class="sep"></div>
+            <div class="sep"></div>
+            <div class="sep"></div>
+            <div class="sep"></div>
+            <div >
+              <div class="item-name">{{item.name}}</div>
+            </div>
+          </div>
+          
+        
+        </div>
+
+      </div>
+    </div>
+
+
+    <div style="margin-top: 1px;" *ngIf="flagPharmcy==true ">
+      <!-- <div class="restContent"  *ngIf="MarketFlage==true" [style.backgroundImage]="'url(https://firebasestorage.googleapis.com/v0/b/shop-cb6b5.appspot.com/o/04bUaRuqfhXEjAcFCOxn4LqsqdF3%2Foffers.jpg?alt=media&token=48cb1c8d-56e1-4700-bda6-c50cdfa313d2)'"> -->
+
+        <form #loginForm="ngForm" novalidate>
+ 
+
+      
+        <div class="w-100 float-left">
+          <div class="w-50 float-left">
+            <ion-button slot="fixed"  color="secondary" style="height: 150px;" (click)="call()"  expand="block">
+           <p style="font-weight: bold; font-size:smaller;" href="tel:01050731003">
+             
+                تواصل مع الصيدلي 
+                <br> 
+           
+                <!-- <a class="red_lbl" style="font-weight: bold; font-size: small;"   href="tel:01050731003">
+                  تواصل مع الصيدلي </a>
+                  -->
+                <ion-icon size="large" name="call-outline"></ion-icon>
+                </p> 
+            </ion-button>
+        
+          </div>
+          <div class="w-50 float-left">
+            <ion-button   slot="fixed" color="secondary"  style="height: 150px; text-align: center;" (click)="cover()" fill="outline"  expand="block" (click)="someThingLikeLogOut()" end>
+        
+            
+               
+            
+           
+              <p style="font-weight: bold; font-size: small;">
+                تصوير الروشتة  
+                <br>
+                  <ion-icon size="large" name="camera-outline"></ion-icon>
+              </p>
+            </ion-button>
+        
+          </div>
+        </div>
+        <br>
+        <br>
+        <div class="w-100 float-left">
+          <div style="text-align: right; margin-top: 20px;" class="w-100 float-left">
+             <ion-label slot="fixed" style="height: 150px;" (click)="checkout()" color="secondary" expand="block">
+              كتابة اسم الدواء
+            </ion-label> 
+            
+         
+          </div>
+       
+        </div>
+        <div class="w-100 float-left">
+          <div  class="w-100 float-left">
+            <ion-textarea  [(ngModel)]="pharmacy.drugname"  [ngModelOptions]="{standalone: true}" style="text-align: right; direction:rtl; border: solid 1px #3dc2ff; border-radius: 5px  !important;"  ></ion-textarea>
+          </div>
+       
+        </div>
+      
+        <div class="w-100 float-left">
+          <div  style="text-align: right; margin-top: 20px;" class="w-100 float-left">
+      
+           
+               <ion-label slot="fixed" style="height: 150px;"  color="secondary" expand="block">
+               رقم الموبايل
+              </ion-label> 
+          </div>
+       
+        </div>
+        <div class="w-100 float-left">
+          <div  style="text-align: right; margin-top: 20px;" class="w-100 float-left">
+            <!-- <ion-select [(ngModel)]="category.sectionid" (ionChange)="addnew();" placeholder="اختار العنوان" >
+              <ion-select-option  *ngFor="let item of allRest;let i = index" [value]="item.id" >{{item.name}}</ion-select-option>
+            </ion-select> 
+               --> 
+           <ion-input  [(ngModel)]="pharmacy.PhoneNum"  [ngModelOptions]="{standalone: true}" style="text-align: right; direction:rtl; border: solid 1px #3dc2ff; border-radius: 5px  !important;"></ion-input>   
+          </div>
+       
+        </div>
+        <div class="w-100 float-left">
+          <div  class="w-100 float-left">
+            <ion-button   slot="fixed" color="secondary"  (click)="ChooseAddress()"     expand="block"  end>
+        
+              تأكيد
+              
+            </ion-button>          </div>
+       
+        </div>
+      
+     
+
+        </form>
+
+</div>
+
+
+		 <div >
+          <div class="time" style="direction:rtl; font-weight:bolder;"></div>
+          <div class="cuisine" style="
+    float: right;
+    text-align: right;
+"></div>
+        </div>
+		
+		      
+      <!-- </ion-row> -->
+    <!-- </div> -->
+  </div>
+</ion-content>

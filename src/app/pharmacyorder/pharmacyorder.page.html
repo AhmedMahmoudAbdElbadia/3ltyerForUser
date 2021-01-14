@@ -1,0 +1,116 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>طلبات الصيدليه</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="mainContent">
+  <div *ngFor="let item of dummy">
+    <ion-list>
+      <ion-item>
+        <ion-thumbnail slot="start">
+          <ion-skeleton-text animated></ion-skeleton-text>
+        </ion-thumbnail>
+        <ion-label>
+          <h3>
+            <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+          </h3>
+          <p>
+            <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+          </p>
+          <p>
+            <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+          </p>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+  </div>
+  <div class="noData" *ngIf="!haveItems && !dummy?.length">
+    <img src="assets/runing.gif" alt="" class="noDataImg">
+    <ion-label>{{"You haven't ordered anything" | translate }}</ion-label>
+    <ion-label>{{'Please order From Pharmacy' | translate }} </ion-label>
+    <ion-button (click)="getCart()" expand="block" fill="outline">
+      {{'Browse Pharmacy' | translate }}
+    </ion-button>
+  </div>
+  <div class="haveData">
+
+    <div class="card_div" *ngFor="let item of PharmacyOrders" (click)="goToHistoryDetail(item.id)">
+
+      <!-- <div *ngIf="item.vid==04bUaRuqfhXEjAcFCOxn4LqsqdF3" class="resto_detail">
+        <div class="back_image" [style.backgroundImage]="'url('+item.vid.cover+')'"></div>
+        <div style="margin-left: 20px;">
+          <ion-label class="res_name">ماركت ع الطاير</ion-label>
+          <ion-label class="res_location">
+            
+          </ion-label>
+        </div>
+      </div> -->
+      <div  class="resto_detail">
+        <!-- <div class="back_image" [style.backgroundImage]="'url('+item.vid.cover+')'"></div> -->
+        <div style="margin-left: 20px;">
+          <ion-label class="res_name">صيدلية ع الطاير</ion-label>
+          <!-- <ion-label class="res_location">
+            {{item.vid.address}}
+          </ion-label> -->
+        </div>
+      </div>
+
+      <div class="line_div"></div>
+      <div class="order_detail">
+        <ion-label class="head_gray">{{'ITEMS' | translate}}</ion-label>
+        <div class="small_lbl">
+          <span >
+            <div *ngIf="item.drugname!=''" class="border_bottom">
+              {{item.drugname}}  <span >,</span>
+            </div>
+            <div *ngIf="item.presimage!=''" class="border_bottom">
+              <div class="back_image" [style.backgroundImage]="'url('+item.presimage+')'"></div>
+               
+            </div>
+            <div  class="subNames">
+              <ion-label *ngIf="item.price!=0"   class="food_title">السعر</ion-label>
+              <ion-label *ngIf="item.price!=0"  class="food_title"> ج.م {{item.price}} </ion-label>
+              <!-- <div  *ngFor="let addods of subItems.item" class="flex_titles">
+                <p  class="sub_name">
+                   {{addods.name}}
+                </p>
+                <p *ngIf="addods.value!=0" class="sub_name">
+                  ج.م {{addods.value}}
+                </p>
+              </div> -->
+            </div>
+          </span>
+        </div>
+        <ion-label class="head_gray">{{'ORDERED ON' | translate }}</ion-label>
+        <ion-label class="small_lbl">{{getDate(item.time)}} </ion-label>
+        <!-- <ion-label class="head_gray">{{'TOTAL AMOUNT' | translate}}</ion-label>
+        <ion-label class="small_lbl"> ج.م {{item.grandTotal}}</ion-label> -->
+      </div>
+
+      <div class="line_div"></div>
+
+      <div class="status_detail" *ngIf="item.status =='completed' || item.status == 'delivered'">
+        <div class="deliver_div">
+          {{'Delivered' | translate}}
+        </div>
+      </div>
+      <div class="status_detail" *ngIf="item.status =='rejected' || item.status == 'cancel'">
+        <div class="deliver_div">
+          {{'Your Order is' }} {{item.status}}
+        </div>
+      </div>
+      <div class="status_detail"
+        *ngIf="item.status =='created' || item.status =='ongoing' || item.status === 'accepted'">
+        <div class="deliver_div">
+          {{'Your Order is' | translate }} {{item.status}}
+        </div>
+        <div class="repeat_div" style="color: green;">
+          <ion-icon name="map-outline"></ion-icon>{{'Track Order' | translate }}
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+</ion-content>

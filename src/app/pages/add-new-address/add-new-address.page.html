@@ -1,0 +1,64 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button mode="md"></ion-back-button>
+    </ion-buttons>
+    <ion-title>اضافة عنوان جديد</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="div_map" #map></div>
+  <div class="locate">
+    <ion-button small color="success" (click)="resetLocation()">
+      <ion-icon name="locate-outline"></ion-icon>
+    </ion-button>
+  </div>
+  <div class="informations">
+    <ion-item>
+      <ion-label position="stacked">{{'LOCATIONS' | translate}}</ion-label>
+      <ion-textarea rows="2" style="direction:rtl;" [(ngModel)]="address" readonly></ion-textarea>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">{{'HOUSE / FLAT NO' | translate}}</ion-label>
+      <ion-input [(ngModel)]="house"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">{{'LANDMARK' | translate}}</ion-label>
+      <ion-input [(ngModel)]="landmark"></ion-input>
+    </ion-item>
+	   <ion-item>
+      <ion-label position="stacked">رقم الموبايل</ion-label>
+      <ion-input [(ngModel)]="mobile"></ion-input>
+    </ion-item>
+    <ion-radio-group [(ngModel)]="title">
+      <ion-label class="title" style="text-align:right; direction:rtl;     display: grid;     font-size: 29px;">
+       حفظ كـ
+      </ion-label>
+      <ion-item style="margin-top: 20px;">
+        <ion-icon name="home-outline" slot="end"></ion-icon>
+        <ion-label>عنوان المنزل</ion-label>
+        <ion-radio value="home"></ion-radio>
+      </ion-item>
+
+      <ion-item>
+        <ion-icon name="briefcase-outline" slot="end"></ion-icon>
+        <ion-label>عنوان العمل</ion-label>
+        <ion-radio value="work"></ion-radio>
+      </ion-item>
+
+      <ion-item>
+        <ion-icon name="navigate-outline" slot="end"></ion-icon>
+        <ion-label>عنوان اخر</ion-label>
+        <ion-radio value="other"></ion-radio>
+      </ion-item>
+    </ion-radio-group>
+    <ion-button *ngIf="from ==='new'" (click)="addAddress()" expand="block">
+     اضافة
+    </ion-button>
+
+    <ion-button *ngIf="from ==='edit'" (click)="updateAddress()" expand="block">
+   تحديث
+    </ion-button>
+  </div>
+</ion-content>

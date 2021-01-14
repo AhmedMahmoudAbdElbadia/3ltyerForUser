@@ -1,0 +1,251 @@
+<ion-header style="padding-bottom: 1px;">
+  <ion-toolbar >  
+    <ion-title  style="text-align: center; margin-bottom: 5px; padding-bottom:4px; ; border-bottom: 0.5px solid gray ">    سلة المشتريات</ion-title>
+ 
+    <div class="w-100 float-left" style="margin-bottom: 15px;">
+      <div class="w-50 float-left" style="text-align: left;">
+        <label size="small" style="color: brown;" (click)="ClearCart()"  style="font-size: smaller;" color="danger" >
+          <ion-icon name="trash"></ion-icon>  حذف السلة
+        </label>
+      </div>
+      <div class="w-50 float-left" style="text-align: right;">
+        <label size="small" style="font-size: smaller;" (click)="AddFav()"   >
+           إضافة الى المفضلة <ion-icon name="heart"></ion-icon>
+        </label>
+      </div>
+    </div>
+    
+  </ion-toolbar>
+  
+</ion-header>
+
+<ion-content >
+  <div class="mainContent" style="padding-top: 1px;">
+    <div class="noData" *ngIf="!cart?.length">
+      <img src="assets/runing.gif" alt="" class="noDataImg">
+      <ion-label style="font-size:x-large; text-align: center !important;"> ! السلة فاضية</ion-label>
+      <!-- <ion-label style="font-size: large; text-align: center !important;">{{'Please add your favourite food' | translate}} </ion-label> -->
+      <ion-button (click)="getCart()" expand="block" fill="outline">
+        {{'HOME' | translate}}
+      </ion-button>
+    </div>
+    <div *ngIf="cart?.length">
+      <!-- <ion-button class="cart-btn" expand="block" color="success" style="font-family: arial;
+    letter-spacing: normal;">سلة المشتريات</ion-button> -->
+    
+    <!-- <ion-row>
+    <div class="w-100 float-left">
+      <div class="w-50 float-left">
+        <ion-button (click)="ClearCart()"  style="font-size: small;" fill="outline" color="danger" expand="block">
+          <ion-icon name="close-circle"></ion-icon>  حذف السلة
+        </ion-button>
+      </div>
+      <div class="w-50 float-left">
+        <ion-button  style="font-size: small;"  color="success" expand="block">
+          سلة المشتريات
+        </ion-button>
+      </div>
+    </div>
+    
+      
+    </ion-row> -->
+
+        <!-- <ion-button class="ion-home" color="light"> حذف السلة</ion-button>  -->
+       <!-- <ion-button (click)="ClearCart()" size="small"fill="outline" color="danger"  >
+      <ion-icon name="close-circle"></ion-icon>
+      حذف السلة 
+      </ion-button>
+  <ion-button size="small" color="success" > سلة المشتريات</ion-button> -->
+ 
+
+
+      <ion-row style="border-bottom: 1px solid lightgray;">
+        <!-- <ion-col size="4"> -->
+        <div class="image_div" [style.backgroundImage]="'url('+cover+')'"></div>
+        <!-- </ion-col> -->
+        <!-- <ion-col size="8">
+          <ion-label class="restname">{{name}}</ion-label>
+          <ion-label class="address">{{address}}</ion-label>
+        </ion-col> -->
+      </ion-row>
+
+      <div *ngIf="cart?.length">
+        <div class="card_div">
+          <div class="card" *ngFor="let item of cart;let i = index" style="margin-top: 10px; border-bottom: 1px solid darkgrey;">
+            <!-- Single -->
+            <div class="mainCat" *ngIf="item.quantiy > 0 && !item.selectedItem?.length" style="width: 100%;">
+						                <div class="w-50" style="display: inline;">
+
+              <img [src]="item.cover" class="image_div" alt="">
+			       
+			  </div>
+              <div class="desc_div" style="
+    text-align: right;
+    direction: rtl;width: 100%;
+">
+                <ion-label class="heading_lbl" style="text-align: right;">{{item.name}}</ion-label>
+                <div class="ratting">
+                  <ion-icon [name]="item.ratting >= 1 ? 'star-outline':'star'"
+                    [color]="item.ratting >= 1 ? 'warning':'medium'">
+                  </ion-icon>
+                  <ion-icon [name]="item.ratting >= 2 ? 'star-outline':'star'"
+                    [color]="item.ratting >= 2 ? 'warning':'medium'">
+                  </ion-icon>
+                  <ion-icon [name]="item.ratting >= 3 ? 'star-outline':'star'"
+                    [color]="item.ratting >= 3 ? 'warning':'medium'">
+                  </ion-icon>
+                  <ion-icon [name]="item.ratting >= 4 ? 'star-outline':'star'"
+                    [color]="item.ratting >= 4 ? 'warning':'medium'">
+                  </ion-icon>
+                  <ion-icon [name]="item.ratting >= 5 ? 'star-outline':'star'"
+                    [color]="item.ratting >= 5 ? 'warning':'medium'">
+                  </ion-icon>
+                  ({{totalRatting}} {{'Rattings' | translate}})
+                </div>
+                <ion-label class="small_lbl" style="text-align: right;" >{{item.desc}}</ion-label>
+                <ion-label class="small_lbl" style="text-align: right;">ج.م {{item.price}}</ion-label>
+                
+              </div>
+         
+		 
+		 
+		 
+		 
+            </div>
+
+            <!-- End Of Sinle -->
+
+
+            <!-- Add-ons Product -->
+            <div class="w-100" *ngIf="item.quantiy > 0 && item.selectedItem?.length">
+              <div class="mainCat" *ngFor="let subItems of item.selectedItem;let j = index" style="margin-top: 10px;">
+                <div class="w-50" style="display: inline;">
+                  <img [src]="item.cover" class="image_div" alt="">
+                  <!-- <div class="cartBtn2">
+                    <ion-button (click)="removeQAddos(i,j)" fill="clear" size="small">
+                      <ion-icon name="remove"></ion-icon>
+                    </ion-button>
+                    <p class="qunitity">{{subItems.total}}</p>
+                    <ion-button (click)="addQAddos(i,j2,j)" fill="clear" size="small">
+                      <ion-icon name="add"></ion-icon>
+                    </ion-button>
+                  </div> -->
+                  <ng-container  *ngFor="let addods of subItems.item; let j2 = index">
+                    <ion-card  text-wrap *ngIf="addods.quantity!=0"  style="margin: 2px;font-size: 12px;color: black; text-align: center;" >
+                                      {{addods.name}} X{{addods.quantity}} 
+  <br>                                    <span style="color: black;" style="text-align: right; direction:rtl;" *ngIf="addods.quantity!=0">  {{addods.value}} ج.م</span>
+  <br>
+                       <ion-button (click)="removeQ(i,j2,j)" fill="clear" size="small">
+                        <ion-icon name="remove"></ion-icon>
+                      </ion-button>
+                      <label  class="qunitity">{{addods.quantity}} </label>
+                      <ion-button (click)="addQ(i,j2,j)" fill="clear" size="small">
+                        <ion-icon name="add"></ion-icon>
+                      </ion-button>
+                   <br>
+                    
+                    </ion-card> 
+                    
+            
+                    </ng-container>  
+                </div>
+                <div class="w-50 desc_div2">
+                  <p class="heading_lbl"  style="text-align: right;">{{item.name}}</p>
+                  <p   style="text-align: right; font-size:smaller; color: darkgrey; margin-top: 0px; padding-bottom: 4px; ">{{item.desc}}</p>
+                  
+                      
+
+                  <br>
+                  
+                    <ion-label  slot="end"  *ngFor="let addods of subItems.item" style="font-size: 12px;color: black; text-align:center; direction:rtl;">{{addods.notes}}</ion-label>
+
+                  
+               </div>
+              </div>
+            </div>
+            <!-- End Of Add-ons Product -->
+          </div>
+        </div>
+        <!-- <ion-row>
+
+         
+      <ion-col  >   <ion-button size="small" expand="block"   (click)="someThingLikeLogOut()">
+       
+       % تطبيق كود الخصم 
+        </ion-button></ion-col> 
+     <ion-col>  <ion-button size="small" expand="block" color="success" > ملخص الفاتورة </ion-button></ion-col> 
+   <ion-col></ion-col>
+  </ion-row> -->
+
+  <div class="w-100 float-left">
+    <div class="w-50 float-left">
+      <ion-button  style="font-size: small;" fill="outline" color="danger" expand="block">
+        % تطبيق كود الخصم 
+      </ion-button>
+    </div>
+    <div class="w-50 float-left">
+      <ion-button   style="font-size: small;" color="success" expand="block">
+        ملخص الفاتورة
+      </ion-button>
+    </div>
+  </div>
+  <br>
+  <br>
+  <br>
+        <!-- <ion-button class="cart-btn" expand="block" color="success" style="font-family: arial;
+    letter-spacing: normal;"></ion-button> -->
+        <div class="billing">
+          <div class="singleRow">
+            <ion-label class="headerTitle">قيمة الطلب</ion-label>
+            <ion-label class="price" style="direction:rtl;">{{totalPrice}} ج.م </ion-label>
+          </div>
+          <div *ngIf="serviceTax!=0" class="singleRow">
+            <ion-label class="headerTitle">الضريبة</ion-label>
+            <ion-label class="price">{{serviceTax}} ج.م </ion-label>
+          </div>
+          <div class="singleRow">
+            <ion-label class="headerTitle">قيمة التوصيل</ion-label>
+            <ion-label class="price"> {{dishPrice}} ج.م </ion-label>
+          </div>
+          <div class="singleRow" *ngIf="coupon">
+            <ion-label class="headerTitle">الخصم</ion-label>
+            <ion-label class="price">{{dicount}} ج.م </ion-label>
+          </div>
+          <div class="singleRow">
+            <ion-label class="headerTotal boldClass">الأجمالي</ion-label>
+            <ion-label class="priceTotal boldClass">{{grandTotal}} ج.م </ion-label>
+          </div>
+        </div>
+       
+      </div>
+ 
+      
+    </div>
+  </div>
+</ion-content>
+<ion-footer class="ion-no-border">
+  <ion-toolbar position="bottom">
+<div class="w-100 float-left">
+  <div class="w-50 float-left">
+    <ion-button slot="fixed"  (click)="checkout()" color="success" expand="block">
+      تنفيذ الطلب
+    </ion-button>
+
+  </div>
+  <div class="w-50 float-left">
+    <ion-button slot="fixed"  (click)="addItem()" fill="outline" color="success" expand="block">
+     أضافة طلب
+    </ion-button>
+  </div>
+</div>
+  </ion-toolbar>
+</ion-footer>
+<!-- <ion-footer *ngIf="cart?.length">
+  <ion-toolbar color="primary">
+    <ion-label color="light">{{totalItem}} {{'ITEM' | translate}}</ion-label>
+    <ion-label color="light">{{getCurrency()}}{{grandTotal}} {{'plus taxes' | translate}}</ion-label>
+    <ion-button (click)="checkout()" slot="end" fill="clear" color="light">
+      {{'Checkout' | translate}}
+    </ion-button>
+  </ion-toolbar>
+</ion-footer> -->

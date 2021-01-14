@@ -1,0 +1,25 @@
+.div_map{
+    height: 50vh;
+    width: 100%;
+    border: 1px solid gray;
+}
+.informations{
+    padding: 10px;
+    .title{
+        font-weight: bold;
+        padding: 10px;
+        margin: 10px;
+    }
+}
+.locate{
+    ion-button{
+        height: 36px;
+        width: 36px;
+        padding: 0;
+        margin: -52px 14px 0px 0px;
+        --padding-start: 0;
+        --padding-end: 0;
+        font-size: 1.2rem;
+        float: right;
+    }
+}
