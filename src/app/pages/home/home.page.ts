@@ -57,6 +57,7 @@ export class HomePage implements OnInit {
   presimage: any;
   coverImage: any='';
   image: any = '';
+  NearLocationV: any;
   constructor(
     private actionSheetController: ActionSheetController,
     private route: ActivatedRoute,
@@ -73,7 +74,9 @@ export class HomePage implements OnInit {
     private camera: Camera,
     private callNumber: CallNumber
   ) {
-    
+    this.lat=localStorage.getItem("lat");
+    this.lng=localStorage.getItem("lng");
+    this.nearLocation();
     const currentLng = this.util.getLanguage();
     console.log('current language --->', currentLng);
   //  this.chips = [this.util.translate('Ratting 4.0+'), this.util.translate('Fastest Delivery'), this.util.translate('Cost')];
@@ -235,6 +238,7 @@ export class HomePage implements OnInit {
 //   });
 // // }
 // }
+
   ionViewWillEnter() {
     this.api.checkAuth().then((data: any) => {
       console.log(data);
@@ -244,10 +248,28 @@ export class HomePage implements OnInit {
       }
     });
     this.getLocation();
+    this.nearLocation();
     this.getProfile();
 //this.AddressPage=false
   }
+  nearLocation() {
+    
+ 
+    
+    const distance =  this.distanceInKmBetweenEarthCoordinates(this.lat, this.lng,30.719129177469853, 31.796588555122725);
+    console.log('distance', distance);
+    // Distance
+    if (distance < 10) {
+      this.NearLocationV=true;
 
+    }
+    else{
+      this.NearLocationV=false;
+    }
+
+
+
+}
   opemCamera(type) {
     const options: CameraOptions = {
       quality: 100,
@@ -499,6 +521,7 @@ export class HomePage implements OnInit {
   }
 
   getRest() {
+   if(this.NearLocationV==true){
     this.dummy = Array(10);
     this.api.getVenues(this.categoryId).then(data => {
      
@@ -525,6 +548,11 @@ export class HomePage implements OnInit {
       console.log(error);
       this.dummy = [];
     });
+   }
+   else{
+    this.allRest = [];
+    this.dummy = [];
+   }
   }
   getSection() {
     this.dummy = Array(10);

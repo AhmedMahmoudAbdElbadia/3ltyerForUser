@@ -16,6 +16,7 @@ export class AccountPage implements OnInit {
   reviews: any = [];
   id: any;
   info: any=[];
+  PhoneNum: any;
   constructor(
     private api: ApisService,
     private router: Router,
@@ -75,6 +76,7 @@ export class AccountPage implements OnInit {
         this.name = data.fullname;
         this.photo = data && data.cover ? data.cover : 'assets/imgs/user.jpg';
         this.email = data.email;
+        this.PhoneNum=data.PhoneNum
         this.id = localStorage.getItem("uid2");
         this.getReview();
       }

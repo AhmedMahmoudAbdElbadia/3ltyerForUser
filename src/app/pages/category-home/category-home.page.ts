@@ -9,6 +9,8 @@ import { UtilService } from 'src/app/services/util.service';
 import * as moment from 'moment';
 import { orderBy, uniqBy } from 'lodash';
 import Swal from 'sweetalert2';
+import { Geofence } from '@ionic-native/geofence/ngx';
+
 declare var google;
 
 @Component({
@@ -50,8 +52,10 @@ export class CategoryHomePage implements OnInit {
     private util: UtilService,
     private apis: ApisService,
     public modalController: ModalController,
-    private navCtrl: NavController
+    private navCtrl: NavController,
+  
   ) {
+    
     this.uid=localStorage.getItem("uid2");
 localStorage.setItem("uid",this.uid)
     console.log("UID",localStorage.getItem("uid"))
@@ -82,6 +86,7 @@ localStorage.setItem("uid",this.uid)
     this.platform.backButton.subscribeWithPriority(10, () => {
       console.log('Handler was called!');
     });
+  
   }
 
   addFilter(index) {
@@ -100,9 +105,32 @@ localStorage.setItem("uid",this.uid)
   }
   ionViewWillEnter() {
     this.getLocation();
+
+//  this.nearLocation();
+    // this.getDistanceFromLatLonInKm(this.lat,this.lng,30.052635253315326,31.235807599155855)
+     //this.getDistanceFromLatLonInKm(this.lat,this.lng,30.78707867765915,30.983616621001925)
     this.getProfile();
   }
+  //  getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2) {
+  //   var R = 6371; // Radius of the earth in km
+  //   var dLat = this.deg2rad(lat2-lat1);  // deg2rad below
+  //   var dLon = this.deg2rad(lon2-lon1); 
+  //   var a = 
+  //     Math.sin(dLat/2) * Math.sin(dLat/2) +
+  //     Math.cos(this.deg2rad(lat1)) * Math.cos(this.deg2rad(lat2)) * 
+  //     Math.sin(dLon/2) * Math.sin(dLon/2)
+  //     ; 
+  //   var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+  //   var d = R * c; // Distance in km
+  //   console.log(d,"هنا كام كيلو ")
+  //   return d;
 
+  // }
+  
+  //  deg2rad(deg) {
+  //   return deg * (Math.PI/180)
+  // }
+  
   // getAddressMy() {
   //   const add = JSON.parse(localStorage.getItem('deliveryAddress'));
   //   if (add && add.address) {
@@ -154,6 +182,7 @@ localStorage.setItem("uid",this.uid)
         });
       } else {
         this.diagnostic.switchToLocationSettings();
+      
         this.geolocation.getCurrentPosition({ maximumAge: 3000, timeout: 10000, enableHighAccuracy: false }).then((resp) => {
           if (resp) {
             console.log('ress,', resp);
@@ -177,6 +206,9 @@ localStorage.setItem("uid",this.uid)
 
   ngOnInit() {
     console.log('init');
+   
+  
+
   }
 
   // getAddress(lat, lng) {
@@ -239,17 +271,38 @@ localStorage.setItem("uid",this.uid)
     //   return await modal.present();
     await this.router.navigate(['choose-address']);
   }
-
+  //  nearLocation() {
+    
+  
+    
+  //       const distance =  this.distanceInKmBetweenEarthCoordinates(this.lat, this.lng, 30.78707867765915,30.983616621001925);
+  //       console.log('distance', distance);
+  //       // Distance
+  //       if (distance < 10) {
+  //         console.log("نفع")
+    
+  //       }
+  //       else{
+  //         console.log("منفعش")
+  //       }
+    
+   
+   
+  // }
   nearMe() {
     this.dummy = Array(50);
     this.allRest = [];
     if (this.nearme) {
       this.dummyRest.forEach(async (element) => {
-        const distance = await this.distanceInKmBetweenEarthCoordinates(this.lat, this.lng, element.lat, element.lng);
+        const distance = await this.distanceInKmBetweenEarthCoordinates(this.lat, this.lng, 30.052635253315326,31.235807599155855);
         console.log('distance', distance);
         // Distance
         if (distance < 10) {
           this.allRest.push(element);
+    
+        }
+        else{
+        
         }
       });
       this.dummy = [];
@@ -416,6 +469,8 @@ this.router.navigate(['home'], navData);
    }
  };
     this.router.navigate(['home'], navData);
+    localStorage.setItem("lat",this.lat);
+    localStorage.setItem("lng",this.lng);
     localStorage.setItem('MarketFlage',String(this.flag));
    }
   }

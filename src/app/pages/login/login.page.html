@@ -11,7 +11,7 @@
   <form *ngIf="loginformview" #loginForm="ngForm" novalidate>
     <ion-list lines="none">
       <ion-item lines="none">
-        <ion-input [(ngModel)]="login.email" type="email" [placeholder]="('Email' | translate) || '&nbsp;'" name="email"
+        <ion-input [(ngModel)]="login.email" type="email" [placeholder]="('Phone' | translate) || '&nbsp;'" name="email"
           #email="ngModel" spellcheck="false" autocapitalize="off" required>
         </ion-input>
       </ion-item>
@@ -21,7 +21,7 @@
         </p>
       </ion-text>
 
-      <ion-item lines="none">
+      <!-- <ion-item lines="none">
         <ion-input [(ngModel)]="login.password" name="password" [placeholder]="('password' | translate) || '&nbsp;'"
           type="password" #password="ngModel" required>
         </ion-input>
@@ -31,7 +31,7 @@
         <p [hidden]="password.valid || submitted == false" class="ion-padding-start">
           {{'Password is required' | translate}}
         </p>
-      </ion-text>
+      </ion-text> -->
     </ion-list>
 
     <ion-row class="ion-no-margin ion-no-padding">

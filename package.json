@@ -25,6 +25,7 @@
     "@ionic-native/camera": "^5.22.0",
     "@ionic-native/core": "^5.0.0",
     "@ionic-native/diagnostic": "^5.21.5",
+    "@ionic-native/geofence": "^5.30.0",
     "@ionic-native/geolocation": "^5.21.5",
     "@ionic-native/onesignal": "^5.21.6",
     "@ionic-native/paypal": "^5.24.0",
@@ -73,6 +74,10 @@
     "@types/node": "~8.9.4",
     "call-number": "^1.0.1",
     "codelyzer": "^5.0.0",
+    "cordova-plugin-add-swift-support": "^1.6.0",
+    "cordova-plugin-compat": "^1.2.0",
+    "cordova-plugin-geofence": "^0.7.0",
+    "es6-promise-plugin": "^4.2.2",
     "jasmine-core": "~3.4.0",
     "jasmine-spec-reporter": "~4.2.1",
     "jquery": "^3.4.0",
@@ -107,7 +112,8 @@
         "ANDROID_SUPPORT_V4_VERSION": "27.+"
       },
       "com.paypal.cordova.mobilesdk": {},
-      "mx.ferreyra.callnumber": {}
+      "mx.ferreyra.callnumber": {},
+      "cordova-plugin-geofence": {}
     },
     "platforms": [
       "browser",

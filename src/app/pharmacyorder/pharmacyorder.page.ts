@@ -51,7 +51,15 @@ export class PharmacyorderPage implements OnInit {
   async ionViewWillEnter() {
     await this.validate();
   }
-
+  getCart() {
+    const navData: NavigationExtras = {
+      queryParams: {
+        id: "403011321",
+        flag:false
+      }
+     };
+    this.router.navigate(['home'],navData);
+  }
   validate() {
     this.api.checkAuth().then(async (user: any) => {
       if (user) {

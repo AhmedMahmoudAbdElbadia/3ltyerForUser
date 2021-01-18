@@ -28,7 +28,7 @@
           {{'Phone is required' | translate}}
         </p>
       </ion-text>
-      <ion-item lines="none">
+      <!-- <ion-item lines="none">
         <ion-input [(ngModel)]="login.email" type="email" [placeholder]="('Email' | translate) || '&nbsp;'" name="email"
           #email="ngModel" spellcheck="false" autocapitalize="off" required>
         </ion-input>
@@ -37,9 +37,9 @@
         <p [hidden]="email.valid || submitted == false" class="ion-padding-start">
           {{'Email is required' | translate}}
         </p>
-      </ion-text>
+      </ion-text> -->
 
-      <ion-item lines="none">
+      <!-- <ion-item lines="none">
         <ion-input [(ngModel)]="login.password" name="password" [placeholder]="('password' | translate) || '&nbsp;'"
           type="password" #password="ngModel" required>
         </ion-input>
@@ -50,8 +50,8 @@
           {{'Password is required' | translate}}
         </p>
 
-      </ion-text>
-      <ion-item lines="none">
+      </ion-text> -->
+      <!-- <ion-item lines="none">
         <ion-input [(ngModel)]="login.confirmPassword" name="cpassword"
           [placeholder]="('Confirm Password' | translate) || '&nbsp;'" type="password" #cpassword="ngModel" required>
         </ion-input>
@@ -61,7 +61,7 @@
         <p [hidden]="cpassword.valid || submitted == false" class="ion-padding-start">
           {{'Confirm Password is required' | translate}}
         </p>
-      </ion-text>
+      </ion-text> -->
     </ion-list>
 
     <ion-row class="ion-no-margin ion-no-padding">

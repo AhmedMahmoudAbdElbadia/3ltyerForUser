@@ -27,14 +27,14 @@
 </ion-header>
 
 <ion-content [scrollEvents]="true" (ionScroll)="onScroll($event)">
-  <div class="restContent"  *ngIf="MarketFlage==true" [style.backgroundImage]="'url(https://firebasestorage.googleapis.com/v0/b/shop-cb6b5.appspot.com/o/04bUaRuqfhXEjAcFCOxn4LqsqdF3%2Ffreedlev.jpg?alt=media&token=3ea48b4e-afdd-439b-a834-f3321a05c4ee)'">
+  <div class="restContent"  *ngIf="MarketFlage==true && NearLocationV!=false" [style.backgroundImage]="'url(https://firebasestorage.googleapis.com/v0/b/shop-cb6b5.appspot.com/o/04bUaRuqfhXEjAcFCOxn4LqsqdF3%2Ffreedlev.jpg?alt=media&token=3ea48b4e-afdd-439b-a834-f3321a05c4ee)'">
 
     <div class="btnss">
       <ion-icon (click)="back()" class="backIcon" color="light" slot="start" name="arrow-back-outline"></ion-icon>
       <ion-label class="moreInfo" (click)="openDetails()"> </ion-label>
     </div>
   </div>
-  <div class="restContent"  *ngIf="flagPharmcy==true" [style.backgroundImage]="'url(https://firebasestorage.googleapis.com/v0/b/shop-cb6b5.appspot.com/o/drivers%2Fpharmacy.jpg?alt=media&token=06976781-6a51-45b3-97e0-5eb344a61853)'">
+  <div class="restContent"  *ngIf="flagPharmcy==true && NearLocationV!=false" [style.backgroundImage]="'url(https://firebasestorage.googleapis.com/v0/b/shop-cb6b5.appspot.com/o/drivers%2Fpharmacy.jpg?alt=media&token=06976781-6a51-45b3-97e0-5eb344a61853)'">
 
     <div class="btnss">
       <ion-icon (click)="back()" class="backIcon" color="light" slot="start" name="arrow-back-outline"></ion-icon>
@@ -64,10 +64,17 @@
     </ion-row></ion-grid> -->
    
     <div class="noData" *ngIf="!dummy?.length && !allRest?.length && flagPharmcy!=true && PharmChooseAddress!=true" [style.backgroundImage]="'url(assets/nothing.jpg)'">
+      
 
     </div>
-    <p style="font-weight: bold;text-align: center;" *ngIf="!dummy?.length && !allRest?.length && flagPharmcy!=true && PharmChooseAddress!=true ">
+
+    <div class="noData" *ngIf="flagPharmcy==true  && NearLocationV==false" [style.backgroundImage]="'url(assets/nothing.jpg)'"></div>
+      <div class="noData" *ngIf="MarketFlage==true && NearLocationV==false" [style.backgroundImage]="'url(assets/nothing.jpg)'"></div>
+    <p style="font-weight: bold;text-align: center;"  *ngIf="!dummy?.length && !allRest?.length && flagPharmcy!=true && PharmChooseAddress!=true && NearLocationV!=false ">
       {{'No Restaurants Found!' | translate}}
+    </p>
+    <p style="font-weight: bold;text-align: center;" *ngIf="NearLocationV==false">
+     للاسف الابليكيشن حاليا متاح في فاقوس فقط
     </p>
     <div *ngFor="let item of dummy">
       <ion-list>
@@ -89,7 +96,7 @@
         </ion-item>
       </ion-list>
     </div>
-    <div class="card_div"  *ngIf="MarketFlage==false">
+    <div class="card_div"  *ngIf="MarketFlage==false && NearLocationV!=false ">
       <ion-row [className]="item && item.status =='close' ? 'cardClosed ion-no-padding':'card ion-no-padding'"
         *ngFor="let item of allRest">
         <div class="image_div" (click)="openMenu(item)" [style.backgroundImage]="'url('+item.cover+')'"></div>
@@ -110,7 +117,7 @@
     </div>
     
 	
-     <div class="card-container" *ngIf="MarketFlage==true">
+     <div class="card-container" *ngIf="MarketFlage==true && NearLocationV!=false">
            <!-- <div class="restContent"  *ngIf="MarketFlage==true" [style.backgroundImage]="'url(https://firebasestorage.googleapis.com/v0/b/shop-cb6b5.appspot.com/o/04bUaRuqfhXEjAcFCOxn4LqsqdF3%2Foffers.jpg?alt=media&token=48cb1c8d-56e1-4700-bda6-c50cdfa313d2)'"> -->
 
       <div *ngFor="let item of allRest">
@@ -137,7 +144,7 @@
     </div>
 
 
-    <div style="margin-top: 1px;" *ngIf="flagPharmcy==true ">
+    <div style="margin-top: 1px;" *ngIf="flagPharmcy==true && NearLocationV!=false ">
       <!-- <div class="restContent"  *ngIf="MarketFlage==true" [style.backgroundImage]="'url(https://firebasestorage.googleapis.com/v0/b/shop-cb6b5.appspot.com/o/04bUaRuqfhXEjAcFCOxn4LqsqdF3%2Foffers.jpg?alt=media&token=48cb1c8d-56e1-4700-bda6-c50cdfa313d2)'"> -->
 
         <form #loginForm="ngForm" novalidate>

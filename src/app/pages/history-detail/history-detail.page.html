@@ -45,12 +45,18 @@
         <ion-label class="food_title">
           {{item.name}} X
           {{item.quantiy}}</ion-label>
+          <p *ngIf="item.desc!='' " class="sub_name">
+            {{item.desc}}
+          </p>
         <div *ngFor="let addods of subItems.item" class="flex_titles">
           <!-- <p class="sub_name">
            
           </p> -->
           <p *ngIf="addods.value!=0" class="sub_name" >
            ج.م {{addods.value}} -     {{addods.name}}
+          </p>
+          <p *ngIf="addods.notes!='' " class="sub_name">
+            {{addods.notes}}
           </p>
         </div>
       </div>

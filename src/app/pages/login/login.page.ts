@@ -70,15 +70,15 @@ export class LoginPage implements OnInit {
   onLogin(form: NgForm) {
     console.log('form', form);
     this.submitted = true;
-    if (form.valid) {
-      const emailfilter = /^[\w._-]+[+]?[\w._-]+@[\w.-]+\.[a-zA-Z]{2,6}$/;
-      if (!emailfilter.test(this.login.email)) {
-        this.util.showToast(this.util.translate('Please enter valid email'), 'danger', 'bottom');
-        return false;
-      }
+    // if (form.valid) {
+    //   const emailfilter = /^[\w._-]+[+]?[\w._-]+@[\w.-]+\.[a-zA-Z]{2,6}$/;
+    //   if (!emailfilter.test(this.login.email)) {
+    //     this.util.showToast(this.util.translate('Please enter valid email'), 'danger', 'bottom');
+    //     return false;
+    //   }
       console.log('login');
       this.isLogin = true;
-      this.api.login(this.login.email, this.login.password).then((userData) => {
+      this.api.login(this.login.email+'@gmail.com', '3ltayer').then((userData) => {
         console.log(userData);
         this.UserData=userData;
         this.api.getProfile(userData.uid).then((info) => {
@@ -122,8 +122,7 @@ export class LoginPage implements OnInit {
         }
       }).then(el => this.isLogin = false);
     }
-  }
-
+  
   resetPass() {
     this.router.navigate(['/forgot']);
   }

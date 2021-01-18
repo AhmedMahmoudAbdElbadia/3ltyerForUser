@@ -16,6 +16,7 @@ import { AngularFireStorageModule } from 'angularfire2/storage';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 
+import { Geofence } from '@ionic-native/geofence/ngx';
 
 import { environment } from 'src/environments/environment';
 import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
@@ -67,6 +68,7 @@ export function LanguageLoader(http: HttpClient) {
   providers: [
     StatusBar,
     SplashScreen,
+    Geofence,
     AndroidPermissions,
     Diagnostic,
     Geolocation,

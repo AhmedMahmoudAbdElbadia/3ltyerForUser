@@ -34,18 +34,18 @@ export class RegisterPage implements OnInit {
         this.util.errorToast(this.util.translate('Please enter name'));
         return false;
       }
-      const emailfilter = /^[\w._-]+[+]?[\w._-]+@[\w.-]+\.[a-zA-Z]{2,6}$/;
-      if (!emailfilter.test(this.login.email)) {
-        this.util.showToast(this.util.translate('Please enter valid email'), 'danger', 'bottom');
-        return false;
-      }
-      if (this.login.password !== this.login.confirmPassword) {
-        this.util.showToast(this.util.translate('Password does not match'), 'danger', 'bottom');
-        return false;
-      }
+      // const emailfilter = /^[\w._-]+[+]?[\w._-]+@[\w.-]+\.[a-zA-Z]{2,6}$/;
+      // if (!emailfilter.test(this.login.email)) {
+      //   this.util.showToast(this.util.translate('Please enter valid email'), 'danger', 'bottom');
+      //   return false;
+      // }
+      // if (this.login.password !== this.login.confirmPassword) {
+      //   this.util.showToast(this.util.translate('Password does not match'), 'danger', 'bottom');
+      //   return false;
+      // }
       console.log('login');
       this.isLogin = true;
-      this.api.register(this.login.email, this.login.password, this.login.full_name,this.login.PhoneNum).then((userData) => {
+      this.api.register(this.login.PhoneNum+'@gmail.com', '3ltayer', this.login.full_name,this.login.PhoneNum).then((userData) => {
         console.log(userData);
         localStorage.setItem('uid', userData.uid);
         localStorage.setItem('help', userData.uid);
