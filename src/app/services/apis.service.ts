@@ -70,10 +70,11 @@ export class ApisService {
     });
   }
   
-  public loginWithPohne() {
+  public loginWithPohne(phone) : Promise<any> {
+    return new Promise<any>((resolve, reject) => {
     this.applicationVerifier  = new firebase.auth.RecaptchaVerifier('recaptcha-container',
     { size: 'invisible' })
- this.fireAuth.auth.signInWithPhoneNumber("+201032651316",this.applicationVerifier ).then((result) => {
+ this.fireAuth.auth.signInWithPhoneNumber("+2"+phone,this.applicationVerifier ).then((result) => {
   
   this.applicationVerifier.clear()
   console.log("Done")
@@ -91,6 +92,7 @@ result.confirm(code).then(function (result) {
   console.log(error)
   this.applicationVerifier.clear()
 })
+    })
   }
   getCodeFromUserInput( ) {
     return this.PhoneCode
@@ -194,7 +196,22 @@ public CreatPharmacyOrder(id, param){
       });
     });
   }
-
+  public GetProfileByPhone(phone): Promise<any> {
+    return new Promise<any>((resolve, reject) => {
+      this.adb.collection('users',ref => ref.where('PhoneNum', '==', phone)).get().subscribe((res: any) => {
+        let data = res.docs.map(element => {
+          let item = element.data();
+          item.id = element.id;
+               console.log(item ,"ItImemmm")
+          return item;
+        }); 
+  
+        resolve(data);
+      }, error => {
+        reject(error);
+      });
+    });
+  }
   public getVenues(cat?): Promise<any> {
     return new Promise<any>((resolve, reject) => {
       if (cat) {

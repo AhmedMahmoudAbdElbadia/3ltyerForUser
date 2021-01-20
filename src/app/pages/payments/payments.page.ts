@@ -541,6 +541,7 @@ subPrice = subPrice + (parseInt(realsItems.quantity) * realsItems.value);
         this.api.createOrder(id, param).then(async (data) => {
           this.util.hide();
           if (this.venueFCM && this.venueFCM !== '') {
+          console.log(this.venueFCM)
             this.api.sendNotification(this.util.translate('New Order Received'),
               this.util.translate('New Order'), this.venueFCM).subscribe((data) => {
                 console.log('send notifications', data);

@@ -15,9 +15,9 @@ export const environment = {
     measurementId: "G-TEQSZN4764"
   },
   onesignal: {
-    appId: '',
-    googleProjectNumber: '',
-    restKey: ''
+    appId: '02c411f0-f42a-4506-a47f-871ac9625792',
+    googleProjectNumber: 'shop-cb6b5',
+    restKey: 'ODllYjgwNWQtMzFkOS00OTcwLWEzYzItYjhlNDJmMjBjYTE4'
   },
   stripe: {
     sk: ''

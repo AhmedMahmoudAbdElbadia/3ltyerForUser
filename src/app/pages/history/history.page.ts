@@ -64,14 +64,14 @@ export class HistoryPage implements OnInit {
     this.api.getMyOrders(localStorage.getItem('uid2')).then((data: any) => {
       console.log('my orders', data);
       if (data && data.length) {
+        data.sort((a, b) =>  <any>new Date(b.time) - <any>new Date(a.time));
         this.haveItems = true;
         data.forEach(element => {
           element.time = new Date(element.time);
          this.vid= element.vid
         
         });
-        
-        data.sort((a, b) => b.time - a.time);
+      
         this.myOrders = data;
         this.myOrders.forEach(element => {
           element.order = JSON.parse(element.order);
@@ -89,13 +89,14 @@ export class HistoryPage implements OnInit {
     this.api.getPharmacyOrders(localStorage.getItem('uid2')).then((data: any) => {
       console.log('my orders', data);
       if (data && data.length) {
+        data.sort((a, b) =>  <any>new Date(b.time) - <any>new Date(a.time));
         this.haveItems = true;
         // data.forEach(element => {
         //   element.time = new Date(element.time);
         //  this.vid= element.vid
         
         // });
-        data.sort((a, b) => b.orderId - a.orderId);
+      
         this.PharmacyOrders = data;
         // this.PharmacyOrders.forEach(element => {
         //   element.order = JSON.parse(element.order);

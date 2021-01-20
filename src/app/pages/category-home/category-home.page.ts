@@ -9,6 +9,12 @@ import { UtilService } from 'src/app/services/util.service';
 import * as moment from 'moment';
 import { orderBy, uniqBy } from 'lodash';
 import Swal from 'sweetalert2';
+<<<<<<< Updated upstream
+=======
+import { Geofence } from '@ionic-native/geofence/ngx';
+import { HttpClient } from '@angular/common/http';
+
+>>>>>>> Stashed changes
 declare var google;
 
 @Component({
@@ -50,7 +56,13 @@ export class CategoryHomePage implements OnInit {
     private util: UtilService,
     private apis: ApisService,
     public modalController: ModalController,
+<<<<<<< Updated upstream
     private navCtrl: NavController
+=======
+    private navCtrl: NavController,
+    private http: HttpClient
+  
+>>>>>>> Stashed changes
   ) {
     this.uid=localStorage.getItem("uid2");
 localStorage.setItem("uid",this.uid)
@@ -112,7 +124,9 @@ localStorage.setItem("uid",this.uid)
   //   }
   //   return this.address;
   // }
-
+  sendNotification(data){
+   
+}
   getLocation() {
     this.platform.ready().then(() => {
       if (this.platform.is('android')) {

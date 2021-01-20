@@ -69,6 +69,12 @@
     <p style="font-weight: bold;text-align: center;" *ngIf="!dummy?.length && !allRest?.length && flagPharmcy!=true && PharmChooseAddress!=true ">
       {{'No Restaurants Found!' | translate}}
     </p>
+<<<<<<< Updated upstream
+=======
+    <p style="font-weight: bold;text-align: center;" *ngIf="NearLocationV==false">
+      {{'Sorry we not cover your area at this time!' | translate}}
+    </p>
+>>>>>>> Stashed changes
     <div *ngFor="let item of dummy">
       <ion-list>
         <ion-item>

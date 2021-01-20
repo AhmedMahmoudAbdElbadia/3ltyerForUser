@@ -114,7 +114,7 @@
     margin-right: 8px; --box-shadow: none!important; margin-top:10px; margin-bottom:10px;">        <ion-label class="cateTitle" [id]="cate.id">{{cate.name}}</ion-label>
  </ion-button>
  
- 
+
  
 	
         <div class="card-container" *ngIf="MarketFlage!=true">
@@ -280,7 +280,7 @@
 <ion-footer *ngIf="totalItem >0">
   <ion-toolbar color="primary">
     <ion-label color="light" style="font-size: 20px; text-align:left;">الأجمالي</ion-label>
-    <ion-label color="light" style="direction:rtl; text-align: left;    font-size: 20px;">{{totalPrice}}  {{getCurrency()}} </ion-label>
+    <ion-label color="light" style="direction:rtl; text-align: left;    font-size: 20px;">{{totalPrice}}  ج.م </ion-label>
     <ion-button (click)="viewCart()" slot="end" fill="clear" color="light" style="font-size: 23px;">
       <ion-icon slot="end" name="arrow-forward-outline"></ion-icon>
       {{'View Cart' | translate}}

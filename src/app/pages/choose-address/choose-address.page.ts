@@ -22,7 +22,7 @@ export class ChooseAddressPage implements OnInit {
   mobile: any;
   presimage: any;
   deliveryAddress: any;
-  venueFCM: boolean;
+  venueFCM: any;
   restId: any;
   constructor(
     private router: Router,
@@ -176,14 +176,14 @@ export class ChooseAddressPage implements OnInit {
               console.log('sent', param);
               this.api.CreatPharmacyOrder(id, param).then(async (data) => {
                 this.util.hide();
-                // if (this.venueFCM && this.venueFCM !== '') {
-                //   this.api.sendNotification(this.util.translate('New Order Received'),
-                //     this.util.translate('New Order'), this.venueFCM).subscribe((data) => {
-                //       console.log('send notifications', data);
-                //     }, error => {
-                //       console.log(error);
-                //     });
-                // }
+                if (this.venueFCM && this.venueFCM !== '') {
+                  this.api.sendNotification(this.util.translate('New Order Received'),
+                    this.util.translate('New Order'), this.venueFCM).subscribe((data) => {
+                      console.log('send notifications', data);
+                    }, error => {
+                      console.log(error);
+                    });
+                }
                 swal.fire({
                   title: this.util.translate('Success'),
                   text: this.util.translate('Your is created succesfully'),

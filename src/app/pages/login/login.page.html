@@ -8,7 +8,7 @@
       لتستفيد بعروض وخصومات ع الطاير</p>
   </div>
 
-  <form *ngIf="loginformview" #loginForm="ngForm" novalidate>
+  <!-- <form *ngIf="loginformview" #loginForm="ngForm" novalidate>
     <ion-list lines="none">
       <ion-item lines="none">
         <ion-input [(ngModel)]="login.email" type="email" [placeholder]="('Email' | translate) || '&nbsp;'" name="email"
@@ -19,37 +19,41 @@
         <p [hidden]="email.valid || submitted == false" class="ion-padding-start">
           {{'Email is required' | translate}}
         </p>
-      </ion-text>
+      </ion-text> -->
 
       <ion-item lines="none">
         <ion-input [(ngModel)]="login.password" name="password" [placeholder]="('password' | translate) || '&nbsp;'"
           type="password" #password="ngModel" required>
         </ion-input>
       </ion-item>
-
       <ion-text color="danger">
         <p [hidden]="password.valid || submitted == false" class="ion-padding-start">
           {{'Password is required' | translate}}
         </p>
+<<<<<<< Updated upstream
       </ion-text>
     </ion-list>
+=======
+      </ion-text> -->
+    <!-- </ion-list>
+>>>>>>> Stashed changes
 
     <ion-row class="ion-no-margin ion-no-padding">
       <ion-col class="ion-no-margin ion-no-padding">
         <p class="frgTag" (click)="resetPass()">{{'Forgot Password?' | translate}}</p>
-        <ion-button class="btn_class" (click)="onLogin(loginForm)" type="submit" expand="block" [disabled]="isLogin" style="--background:#30b430">
+        <ion-button class="btn_class" (click)="loginto()" type="submit" expand="block" [disabled]="isLogin" style="--background:#30b430">
           <span *ngIf="!isLogin"> {{'Log In' | translate}}</span>
           <ion-spinner name="circles" *ngIf="isLogin"></ion-spinner>
         </ion-button>
       </ion-col>
     </ion-row>
 
-  </form>
+  </form> -->
   
-  <!-- <form *ngIf="!loginformview" #loginForm="ngForm" novalidate>
+   <form  #loginForm="ngForm" novalidate>
     <ion-list lines="none">
       <ion-item *ngIf="!codesended" lines="none">
-        <ion-input [(ngModel)]="phone" type="text" disabled="{{isDisabled}}" [placeholder]="('Email' | translate) || '&nbsp;'" name="PhoneNum"
+        <ion-input [(ngModel)]="phone" type="text" [placeholder]="('Email' | translate) || '&nbsp;'" name="PhoneNum"
           #PhoneNum="ngModel" spellcheck="false" autocapitalize="off" required>
         </ion-input>
       </ion-item>
@@ -57,21 +61,20 @@
         <ion-input [ngModelOptions]="{standalone: true}" [(ngModel)]="code"   type = "text"   [placeholder]="('Enter Code Here' | translate) || '&nbsp;'" 
           spellcheck="false" autocapitalize="off" required>
         </ion-input>
-      </ion-item> -->
-      <!-- <ion-text color="danger">
+      </ion-item> 
+       <ion-text color="danger">
         <p [hidden]="PhoneNum.valid || submitted == false" class="ion-padding-start">
           {{'Phone is required' | translate}}
          
         </p>
-      </ion-text> -->
-<!--       
+      </ion-text> 
+      
     </ion-list>
-
     <ion-row class="ion-no-margin ion-no-padding">
-      <ion-col class="ion-no-margin ion-no-padding"> -->
+      <ion-col class="ion-no-margin ion-no-padding"> 
 
-        <!-- <p class="frgTag" (click)="resetPass()"> الرقم المسجل في حسابك هو {{phone}}</p> -->
-        <!-- <ion-button *ngIf="!codesended" class="btn_class" (click)="loginWihPhone(phone)" type="submit" expand="block" [disabled]="isLogin" style="--background:#30b430">
+        <p class="frgTag" (click)="resetPass()"> الرقم المسجل في حسابك هو {{phone}}</p> 
+        <ion-button *ngIf="!codesended" class="btn_class" (click)="loginWihPhone(phone)" type="submit" expand="block" [disabled]="isLogin" style="--background:#30b430">
           <span *ngIf="!isLogin"> {{'Send Code' | translate}}</span>
           <ion-spinner name="circles" *ngIf="isLogin"></ion-spinner>
         </ion-button>
@@ -81,8 +84,7 @@
         </ion-button>
       </ion-col>
     </ion-row>
-
-  </form> -->
+  </form> 
   <p class="createAcc" (click)="register()">{{'Dont have an account?' | translate}}
     <span class="registerTag">{{'Sign up' | translate}}</span>
   </p>
@@ -93,9 +95,8 @@
       [ngClass]="getClassName() == 'spanish' ? 'flagActive':'flagDeactive'" alt="">
   </div>
 <div id="recaptcha-container"></div>
-  <!-- <button ion-button block (click)="loginWihPhone()">phone</button>
+   <!-- <button ion-button block (click)="loginWihPhone()">phone</button>
   
-
   <ion-input type="text" [(ngModel)]="code"></ion-input>
-  <button (click)="verfiy()">verify</button> -->
+  <button (click)="verfiy()">verify</button>  -->
 </ion-content>
